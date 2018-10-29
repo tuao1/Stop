@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Activity.MainActivity"
+    tools:showIn="@layout/app_bar_main">
+
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/bmapView"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.baidu.mapapi.map.MapView>
+    <include layout="@layout/point" />
+
+
+
+    <RelativeLayout
+        android:elevation="10dp"
+        android:layout_marginTop="450dp"
+        android:background="@drawable/rectangle_2"
+        android:layout_marginLeft="50dp"
+        android:layout_width="250dp"
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/load"
+            android:text="点击展开更多"
+            android:gravity="center_horizontal"
+            android:paddingTop="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:padding="5dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rectangle_2"
+        android:id="@+id/showhideView"
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_below="@+id/a"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content">
+       <fragment
+           android:name="com.example.tuao.stop.fragment.DataFragment"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"/>
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/location"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="380dp"
+        android:src="@drawable/location"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+
+    </RelativeLayout>
