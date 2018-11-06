@@ -5,37 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Activity.MainActivity"
+    tools:context=".activity.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
 
     <com.baidu.mapapi.map.MapView
         android:id="@+id/bmapView"
-        android:clickable="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clickable="true">
 
     </com.baidu.mapapi.map.MapView>
+
     <include layout="@layout/point" />
 
 
-
     <RelativeLayout
-        android:elevation="10dp"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginTop="450dp"
         android:background="@drawable/rectangle_2"
-        android:layout_marginLeft="50dp"
-        android:layout_width="250dp"
-        android:layout_height="50dp">
+        android:elevation="10dp">
+
         <TextView
             android:id="@+id/load"
-            android:text="点击展开更多"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:paddingTop="18dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:text="点击展开更多" />
     </RelativeLayout>
+
     <RelativeLayout
+
         android:id="@+id/showhide_find"
         android:background="@drawable/rectangle_2"
         android:visibility="gone"
@@ -50,25 +53,28 @@
     </RelativeLayout>
     <RelativeLayout
         android:padding="5dp"
+        android:id="@+id/showhideView"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/a"
         android:layout_centerHorizontal="true"
         android:background="@drawable/rectangle_2"
-        android:id="@+id/showhideView"
-        android:visibility="gone"
         android:gravity="center"
-        android:layout_below="@+id/a"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content">
-       <fragment
-           android:name="com.example.tuao.stop.fragment.DataFragment"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"/>
+        android:visibility="gone">
+
+        <fragment
+            android:name="com.example.tuao.stop.fragment.DataFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </RelativeLayout>
+
     <ImageView
         android:id="@+id/location"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="380dp"
-        android:src="@drawable/location"
-        android:layout_width="30dp"
-        android:layout_height="30dp" />
+        android:layout_marginBottom="70dp"
+        android:src="@drawable/location" />
 
-    </RelativeLayout>
+</RelativeLayout>

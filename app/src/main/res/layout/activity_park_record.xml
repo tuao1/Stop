@@ -5,7 +5,10 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.ParkRecord">
+    tools:context=".activity.ParkRecord">
+
+    <include layout="@layout/toolbar_as"/>
+
     <TextView
         android:layout_gravity="center"
         android:text="停车记录"

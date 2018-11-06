@@ -5,19 +5,66 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.CarManager">
+    android:background="@color/greyWhite"
+    tools:context=".activity.CarManager">
+
+    <include layout="@layout/toolbar_as"/>
+
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="最多添加3个车牌"/>
+
+    <TextView
+        android:id="@+id/text_car_manager_tips"
         android:text="暂未添加车位"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="90dp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <Button
+        android:id="@+id/btn_car_manager_new_1"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:background="@drawable/rectangle_2"
         android:text="马上添加"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/layout_car_manager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:srlAccentColor="#2acfe6">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView_car_manager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never" />
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+        <Button
+            android:id="@+id/btn_car_manager_new_2"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rectangle_2"
+            android:text="马上添加"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
 
 </LinearLayout>
