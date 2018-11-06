@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<TextView
+    android:textStyle="italic"
+    android:gravity="center_vertical"
+    android:layout_marginTop="3dp"
+    android:id="@+id/item_stop"
+    android:paddingLeft="15dp"
+    android:text="武汉"
+    android:textSize="15sp"
+    android:textColor="#b5b4b4"
+    android:paddingTop="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="50dp" />
+    <ImageView
+        android:background="#dad5d5"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp" />
+</LinearLayout>

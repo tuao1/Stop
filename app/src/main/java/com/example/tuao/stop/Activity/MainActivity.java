@@ -9,6 +9,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,11 +29,13 @@ import android.widget.Toast;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.example.tuao.stop.PropertyAnimation;
 import com.example.tuao.stop.R;
@@ -38,16 +43,21 @@ import com.example.tuao.stop.R;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import static com.example.tuao.stop.fragment.FindFragment.listView;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,SearchView.OnQueryTextListener {
     private MapView mapView;
     private LocationClient mLocationClient;
     private BaiduMap baiduMap;
     private boolean isFirstLocate=true;
-    private TextView load;//屏幕下方点击加载
-    private RelativeLayout mHiddenLayout;
+    private TextView load,currentAdress;//屏幕下方点击加载
+    private RelativeLayout mHiddenLayout,findhiddenLayout;
     private PropertyAnimation propertyAnimation;
     private ImageView location;//点击定位按钮
+    public static StringBuilder currentPosition;
+    private SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,21 +67,29 @@ public class MainActivity extends AppCompatActivity
        // 在setcontentView之前用
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
+        //获取searview实例
+      ////  searchView=findViewById(R.id.ab_search);
+
+        //获取字符串实例 当前具体地址
+        currentPosition=new StringBuilder();
         //自己定义的属性动画类
         propertyAnimation=new PropertyAnimation(this);
         load=(TextView)findViewById(R.id.load);
+        currentAdress=(TextView)findViewById(R.id.currentAddress);
         load.setOnClickListener(this);
         mHiddenLayout=(RelativeLayout)this.findViewById(R.id.showhideView);
-
+        findhiddenLayout=(RelativeLayout)this.findViewById(R.id.showhide_find);
   location=(ImageView)findViewById(R.id.location);
   location.setOnClickListener(this);
 
 
         mapView=(MapView)findViewById(R.id.bmapView);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(null);
         setSupportActionBar(toolbar);
         //获取BaiduMap实例
         baiduMap=mapView.getMap();
+        baiduMap.setMyLocationEnabled(true);
 
 //悬浮按钮点击事件
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -124,7 +142,13 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+       getMenuInflater().inflate(R.menu.main, menu);
+       Menu mMenu=menu;
+       MenuItem menuItem=mMenu.findItem(R.id.ab_search);
+       searchView=(SearchView)menuItem.getActionView();
+        searchView.setQueryHint("搜索附近停车场");
+        searchView.setIconifiedByDefault(true);
+        searchView.setOnQueryTextListener(this);
         return true;
     }
 
@@ -170,7 +194,15 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
     private void requestLocation(){
-        mLocationClient.start();
+        initLocation();
+         mLocationClient.start();
+    }
+    private void initLocation(){
+        LocationClientOption option=new LocationClientOption();
+        option.setScanSpan(5000);
+        option.setIsNeedAddress(true);
+       // option.setLocationMode(LocationClientOption.LocationMode.Device_Sensors);
+        mLocationClient.setLocOption(option);
     }
 
     @Override
@@ -203,25 +235,46 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onPause() {
         super.onPause();
+
         mapView.onPause();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mLocationClient.stop();
         mapView.onDestroy();
+        baiduMap.setMyLocationEnabled(false);
     }
     private void navigateTo(BDLocation location){
         if(isFirstLocate){
             LatLng ll=new LatLng(location.getLatitude(),location.getLongitude());
             MapStatusUpdate update=MapStatusUpdateFactory.newLatLng(ll);
             baiduMap.animateMapStatus(update);
+            update=MapStatusUpdateFactory.zoomTo(17f);
+            baiduMap.animateMapStatus(update);
             isFirstLocate=false;
         }
+        MyLocationData.Builder locationBuilder=new MyLocationData.Builder();
+        locationBuilder.latitude(location.getLatitude());
+        locationBuilder.longitude(location.getLongitude());
+        MyLocationData locationData=locationBuilder.build();
+        baiduMap.setMyLocationData(locationData);
     }
     public class MyLocationListener implements BDLocationListener{
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
+
+            //获取具体街道
+
+            currentPosition.append("“").append(bdLocation.getCity()).append(bdLocation.getDistrict()).append(bdLocation.getStreet()).append("街道附近停车场...").append("”");
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    currentAdress.setText(currentPosition);
+                }
+            });
+            currentPosition.delete(0,currentPosition.length());
             if(bdLocation.getLocType()==BDLocation.TypeGpsLocation||bdLocation.getLocType()==BDLocation.TypeNetWorkLocation){
                 navigateTo(bdLocation);
             }
@@ -252,7 +305,35 @@ switch (v.getId()){
             });
         }
         break;
-    case R.id.location: //requestLocation();//点击定位待写
+    case R.id.location:
 }
+    }
+//搜索框的事件
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if(!TextUtils.isEmpty(newText)) {
+listView.setFilterText(newText);
+            if (findhiddenLayout.getVisibility() == View.GONE) {
+                propertyAnimation.animateOpen(findhiddenLayout);
+            }
+          //  listView.setFilterText(newText);
+           // adapter.getFilter().filter(newText);
+
+        }
+
+else {
+
+           listView.clearTextFilter();
+            //adapter.getFilter().filter("");
+            if (findhiddenLayout.getVisibility() == View.VISIBLE) {
+                propertyAnimation.animateClose(findhiddenLayout);
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
     }
 }

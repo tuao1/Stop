@@ -36,6 +36,19 @@
             android:layout_height="match_parent" />
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/showhide_find"
+        android:background="@drawable/rectangle_2"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:layout_width="250dp"
+        android:layout_height="300dp">
+        <fragment
+            android:name="com.example.tuao.stop.fragment.FindFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </RelativeLayout>
+    <RelativeLayout
         android:padding="5dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/rectangle_2"

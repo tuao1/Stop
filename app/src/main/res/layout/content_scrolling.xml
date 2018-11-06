@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Activity.ScrollingActivity"
+    tools:showIn="@layout/activity_scrolling">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <TextView
+                android:gravity="center_vertical"
+                android:text="停车场剩余空泊位"
+                android:paddingLeft="10dp"
+                android:layout_width="200dp"
+                android:layout_height="40dp" />
+            <TextView
+                android:id="@+id/bowei"
+                android:gravity="center"
+                android:textColor="#f65757"
+                android:text="34"
+                android:layout_marginLeft="280dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <ImageView
+                android:layout_marginLeft="320dp"
+                android:background="@drawable/ic_directions_car_black_24dp_2"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+        </RelativeLayout>
+        <ImageView
+            android:background="#e8e4e4"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp" />
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <TextView
+                android:text="资费详情"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/money"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="3dp"
+                android:gravity="center_vertical"
+                android:text="3元/小时"
+                android:layout_width="70dp"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+        <ImageView
+            android:background="#e8e4e4"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp" />
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <TextView
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="距离我"
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/juli"
+                android:gravity="center_vertical"
+                android:text="1213.06km"
+                android:layout_marginRight="3dp"
+                android:layout_alignParentRight="true"
+                android:layout_width="80dp"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+        <ImageView
+            android:background="#e8e4e4"
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+        <RelativeLayout
+            android:id="@+id/commitmoney"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <TextView
+                android:text="在线缴费"
+                android:textColor="#f66666"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_width="80dp"
+                android:layout_height="match_parent" />
+            <ImageView
+                android:background="@drawable/ic_keyboard_arrow_right_black_24dp"
+                android:layout_alignParentRight="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+        </RelativeLayout>
+        <ImageView
+            android:background="#e8e4e4"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp" />
+        <RelativeLayout
+            android:id="@+id/yuekataocan"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <TextView
+                android:text="月卡套餐"
+                android:textColor="#f66666"
+                android:paddingLeft="10dp"
+                android:gravity="center_vertical"
+                android:layout_width="80dp"
+                android:layout_height="match_parent" />
+            <ImageView
+                android:background="@drawable/ic_keyboard_arrow_right_black_24dp"
+                android:layout_alignParentRight="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/goto_baidu"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/rectangle_2"
+            android:gravity="center"
+            android:text="去这里"
+            android:textColor="#f66666"
+            android:layout_gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
