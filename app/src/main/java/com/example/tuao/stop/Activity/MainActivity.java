@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -48,6 +49,9 @@ public class MainActivity extends AppCompatActivity
     private RelativeLayout mHiddenLayout;
     private PropertyAnimation propertyAnimation;
     private ImageView location;//点击定位按钮
+    private ImageView service;
+    private ImageView share;
+    private ImageView setting;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,11 +66,8 @@ public class MainActivity extends AppCompatActivity
         load=(TextView)findViewById(R.id.load);
         load.setOnClickListener(this);
         mHiddenLayout=(RelativeLayout)this.findViewById(R.id.showhideView);
-
-  location=(ImageView)findViewById(R.id.location);
-  location.setOnClickListener(this);
-
-
+        location=(ImageView)findViewById(R.id.location);
+        location.setOnClickListener(this);
         mapView=(MapView)findViewById(R.id.bmapView);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -109,6 +110,13 @@ public class MainActivity extends AppCompatActivity
         }else{
             requestLocation();
         }
+
+        service = (ImageView)findViewById(R.id.service);
+        service.setOnClickListener(this);
+        share = (ImageView)findViewById(R.id.share);
+        share.setOnClickListener(this);
+        setting = (ImageView)findViewById(R.id.setting);
+        setting.setOnClickListener(this);
     }
 
     @Override
@@ -253,6 +261,20 @@ switch (v.getId()){
         }
         break;
     case R.id.location: //requestLocation();//点击定位待写
-}
+        break;
+    case R.id.service:
+        Intent intent = new Intent(MainActivity.this,Call_Phone.class);
+        startActivity(intent);
+        break;
+    case R.id.share:
+        Intent intent1 = new Intent(MainActivity.this,Share.class);
+        startActivity(intent1);
+        break;
+    case R.id.setting:
+        Intent intent2 = new Intent(MainActivity.this,Setting.class);
+        startActivity(intent2);
+        break;
+        default:
     }
+   }
 }

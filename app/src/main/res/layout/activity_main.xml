@@ -37,7 +37,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp" />
         <ImageView
-            android:id="@+id/invite"
+            android:id="@+id/share"
             android:layout_gravity="bottom"
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="120dp"
@@ -45,7 +45,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp" />
         <TextView
-            android:text="邀请"
+            android:text="分享"
             android:layout_gravity="bottom"
             android:layout_marginLeft="124dp"
             android:layout_width="30dp"

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Share"
+    android:orientation="vertical">
+    <RelativeLayout
+    android:id="@+id/share"
+    android:layout_width="match_parent"
+    android:layout_alignParentTop="true"
+    android:layout_height="wrap_content">
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/share_"
+        android:background="@drawable/sharebackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ImageView
+        android:layout_marginLeft="120sp"
+        android:id="@+id/qq"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/qq"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+    <ImageView
+        android:id="@+id/wechat"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="120sp"
+        android:background="@drawable/wechat"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+    </RelativeLayout>
+</LinearLayout>

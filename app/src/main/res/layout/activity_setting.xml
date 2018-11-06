@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#c3c3c3"
+    tools:context=".Activity.Setting">
+    <LinearLayout
+        android:background="#ffffff"
+        android:layout_marginTop="18sp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp">
+    <TextView
+        android:text="消息通知"
+        android:textSize="18sp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18sp" />
+    <Switch
+        android:id="@+id/message"
+        android:layout_gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <ImageView
+
+        android:layout_width="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_height="1dp"
+        android:layout_marginRight="15dp" />
+    <LinearLayout
+        android:background="#ffffff"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:text="短信通知"
+            android:textSize="18sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Switch
+            android:id="@+id/short_message"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <RelativeLayout
+        android:background="#ffffff"
+        android:layout_marginTop="18sp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp">
+        <TextView
+            android:text="使用评价"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18sp" />
+        <Button
+            android:id="@+id/remark"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/enter"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="35dp" />
+
+    </RelativeLayout>
+    <ImageView
+
+        android:layout_width="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_height="1dp"
+        android:layout_marginRight="15dp" />
+    <RelativeLayout
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp">
+        <TextView
+            android:text="意见反馈"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18sp" />
+        <Button
+            android:id="@+id/opinion"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/enter"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="35dp" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="18sp"
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp">
+        <TextView
+            android:text="当前版本"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18sp" />
+        <TextView
+            android:text="v1.1.1"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentRight="true"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <ImageView
+
+        android:layout_width="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_height="1dp"
+        android:layout_marginRight="15dp" />
+    <RelativeLayout
+
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp">
+        <TextView
+            android:text="关于我们"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18sp" />
+        <Button
+            android:id="@+id/about_us"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/enter"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="35dp" />
+
+    </RelativeLayout>
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="35dp" />
+    <Button
+
+        android:text="退出"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:layout_marginTop="18sp"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp" />
+
+</LinearLayout>
