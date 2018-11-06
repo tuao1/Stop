@@ -1,6 +1,7 @@
-package com.example.tuao.stop.Activity;
+package com.example.tuao.stop.activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -34,44 +35,66 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.model.LatLng;
 import com.example.tuao.stop.PropertyAnimation;
 import com.example.tuao.stop.R;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private MapView mapView;
     private LocationClient mLocationClient;
     private BaiduMap baiduMap;
-    private boolean isFirstLocate=true;
+    private boolean isFirstLocate = true;
     private TextView load;//屏幕下方点击加载
     private RelativeLayout mHiddenLayout;
     private PropertyAnimation propertyAnimation;
     private ImageView location;//点击定位按钮
+
+    private ImageView imgAvatar;
+
+    static {
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
+            @Override
+            public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
+                layout.setPrimaryColorsId(R.color.greyWhite, android.R.color.darker_gray);//全局设置主题颜色
+                return new ClassicsHeader(context);
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mLocationClient=new LocationClient(getApplicationContext());
+        mLocationClient = new LocationClient(getApplicationContext());
         mLocationClient.registerLocationListener(new MyLocationListener());
-       // 在setcontentView之前用
+        // 在setcontentView之前用
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
+
         //自己定义的属性动画类
-        propertyAnimation=new PropertyAnimation(this);
-        load=(TextView)findViewById(R.id.load);
+        propertyAnimation = new PropertyAnimation(this);
+        load = (TextView) findViewById(R.id.load);
         load.setOnClickListener(this);
-        mHiddenLayout=(RelativeLayout)this.findViewById(R.id.showhideView);
+        mHiddenLayout = (RelativeLayout) this.findViewById(R.id.showhideView);
 
-  location=(ImageView)findViewById(R.id.location);
-  location.setOnClickListener(this);
+        location = (ImageView) findViewById(R.id.location);
+        location.setOnClickListener(this);
 
 
-        mapView=(MapView)findViewById(R.id.bmapView);
+        mapView = (MapView) findViewById(R.id.bmapView);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //获取BaiduMap实例
-        baiduMap=mapView.getMap();
+        baiduMap = mapView.getMap();
+
+        MapStatusUpdate statusUpdate = MapStatusUpdateFactory.zoomTo(baiduMap.getMaxZoomLevel() - 3);
+        baiduMap.animateMapStatus(statusUpdate);
 
 //悬浮按钮点击事件
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -92,21 +115,31 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        imgAvatar = headerView.findViewById(R.id.img_home_avatar);
+        imgAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, UserInfo.class);
+                startActivity(intent);
+            }
+        });
+
 //访问权限
-        List<String> permissionList=new ArrayList<>();
-        if(ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
+        List<String> permissionList = new ArrayList<>();
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
         }
-        if (ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.READ_PHONE_STATE)!=PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             permissionList.add(Manifest.permission.READ_PHONE_STATE);
         }
-        if(ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
-        if(!permissionList.isEmpty()){
-            String[] permissions=permissionList.toArray(new String[permissionList.size()]);
-            ActivityCompat.requestPermissions(MainActivity.this,permissions,1);
-        }else{
+        if (!permissionList.isEmpty()) {
+            String[] permissions = permissionList.toArray(new String[permissionList.size()]);
+            ActivityCompat.requestPermissions(MainActivity.this, permissions, 1);
+        } else {
             requestLocation();
         }
     }
@@ -142,7 +175,8 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-/* 点击左侧menu 的点击事件*/
+
+    /* 点击左侧menu 的点击事件*/
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -150,46 +184,48 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            Intent i_1=new Intent(MainActivity.this,CarManager.class);
+            Intent i_1 = new Intent(MainActivity.this, CarManager.class);
             startActivity(i_1);
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-            Intent i_2=new Intent(MainActivity.this,ParkRecord.class);
+            Intent i_2 = new Intent(MainActivity.this, ParkRecord.class);
             startActivity(i_2);
 
         } else if (id == R.id.nav_slideshow) {
-            Toast.makeText(this,"懒得写",Toast.LENGTH_SHORT).show();
+            Intent i_3 = new Intent(MainActivity.this, MyWallet.class);
+            startActivity(i_3);
 
         } else if (id == R.id.nav_manage) {
-            Toast.makeText(this,"暂未开放",Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(this, "暂未开放", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    private void requestLocation(){
+
+    private void requestLocation() {
         mLocationClient.start();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
-            case 1:if(grantResults.length>0){
-                for(int result:grantResults){
-                    if(result!=PackageManager.PERMISSION_GRANTED){
-                        Toast.makeText(this,"必须同意所有权限才能运行此程序",Toast.LENGTH_SHORT).show();
-                        finish();
-                        return;
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0) {
+                    for (int result : grantResults) {
+                        if (result != PackageManager.PERMISSION_GRANTED) {
+                            Toast.makeText(this, "必须同意所有权限才能运行此程序", Toast.LENGTH_SHORT).show();
+                            finish();
+                            return;
+                        }
                     }
+                    requestLocation();
+                } else {
+                    Toast.makeText(this, "发生未知错误", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
-                requestLocation();
-            }else{
-                Toast.makeText(this,"发生未知错误",Toast.LENGTH_SHORT).show();
-                finish();
-            }
-            break;
+                break;
             default:
         }
     }
@@ -211,48 +247,51 @@ public class MainActivity extends AppCompatActivity
         super.onDestroy();
         mapView.onDestroy();
     }
-    private void navigateTo(BDLocation location){
-        if(isFirstLocate){
-            LatLng ll=new LatLng(location.getLatitude(),location.getLongitude());
-            MapStatusUpdate update=MapStatusUpdateFactory.newLatLng(ll);
+
+    private void navigateTo(BDLocation location) {
+        if (isFirstLocate) {
+            LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
+            MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(ll);
             baiduMap.animateMapStatus(update);
-            isFirstLocate=false;
+            isFirstLocate = false;
         }
     }
-    public class MyLocationListener implements BDLocationListener{
+
+    public class MyLocationListener implements BDLocationListener {
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
-            if(bdLocation.getLocType()==BDLocation.TypeGpsLocation||bdLocation.getLocType()==BDLocation.TypeNetWorkLocation){
+            if (bdLocation.getLocType() == BDLocation.TypeGpsLocation || bdLocation.getLocType() == BDLocation.TypeNetWorkLocation) {
                 navigateTo(bdLocation);
             }
         }
     }
-//屏幕上的一些点击事件
+
+    //屏幕上的一些点击事件
     @Override
     public void onClick(View v) {
-switch (v.getId()){
-    case R.id.load:
-        if (mHiddenLayout.getVisibility() == View.GONE) {
-            propertyAnimation.animateOpen(mHiddenLayout);
-            propertyAnimation.animationIvOpen(load);
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    load.setText("关闭");
+        switch (v.getId()) {
+            case R.id.load:
+                if (mHiddenLayout.getVisibility() == View.GONE) {
+                    propertyAnimation.animateOpen(mHiddenLayout);
+                    propertyAnimation.animationIvOpen(load);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            load.setText("关闭");
+                        }
+                    });
+                } else {
+                    propertyAnimation.animateClose(mHiddenLayout);
+                    propertyAnimation.animationIvClose(load);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            load.setText("点击展开更多");
+                        }
+                    });
                 }
-            });
-        } else {
-            propertyAnimation.animateClose(mHiddenLayout);
-            propertyAnimation.animationIvClose(load);
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    load.setText("点击展开更多");
-                }
-            });
+                break;
+            case R.id.location: //requestLocation();//点击定位待写
         }
-        break;
-    case R.id.location: //requestLocation();//点击定位待写
-}
     }
 }

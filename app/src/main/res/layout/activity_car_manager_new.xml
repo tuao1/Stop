@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ver="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar_as"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/input_car_manager_new"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="请输入您的车牌号进行绑定"
+        android:textColor="#848484"/>
+
+
+
+    <com.jyn.vcview.VerificationCodeView
+        android:id="@+id/input_car_manager_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        app:vcv_et_bg="@drawable/et_login_code"
+        app:vcv_et_cursor="@drawable/et_cursor"
+        app:vcv_et_inputType="text"
+        app:vcv_et_number="7"
+        app:vcv_et_text_color="@android:color/black"
+        app:vcv_et_text_size="6sp" />
+
+    <Button
+        android:id="@+id/btn_car_manager_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/input_car_manager_new"
+        android:layout_centerHorizontal="true"
+        android:text="添加"
+        android:textSize="20sp"
+        android:textColor="#fff"
+        android:background="#13d0f1"/>
+
+</RelativeLayout>
